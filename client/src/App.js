@@ -1,18 +1,24 @@
 import React, { Component } from "react";
-import logo from "./d20-folio-logo-1.png";
+// import logo from "./d20-folio-logo-1.png";
 import "./App.css";
+import { BrowserRouter, Route } from 'react-router-dom'
+import Navbar from './components/Navbar';
+import MyCharacters from './pages/MyCharacters';
+import AllCharacters from './pages/AllCharacters';
+import EditCharacters from './pages/EditCharacter';
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Navbar />
+        <BrowserRouter>
+          <Route exact path="/" component={AllCharacters} />
+          <Route exact path="/mychars" component={MyCharacters} />
+          <Route exact path="/new" component={() => <EditCharacters new={true} />} />
+          <Route exact path="/edit/:id" component={({ match }) => <EditCharacters match={match} />} />
+        </BrowserRouter>
       </div>
     );
   }
